@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.anassploit</groupId>
-    <artifactId>conference-sevice</artifactId>
+    <artifactId>conference-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>conference-sevice</name>
     <description>conference-sevice</description>
