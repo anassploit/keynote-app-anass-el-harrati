@@ -2,11 +2,10 @@ package net.anassploit.conferencesevice.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import net.anassploit.conferencesevice.DTO.KeynoteDTO;
 import net.anassploit.conferencesevice.enums.ConferenceType;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor @NoArgsConstructor @Getter @Setter @Builder
@@ -33,4 +32,8 @@ public class Conference {
     }
     @OneToMany(mappedBy = "conference")
     List<Review>  reviews = new ArrayList<>();
+
+    @Transient
+    List<KeynoteDTO> keynotes;
+
 }
