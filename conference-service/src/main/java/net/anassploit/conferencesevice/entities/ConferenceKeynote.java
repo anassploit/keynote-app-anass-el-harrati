@@ -20,4 +20,3 @@ public class ConferenceKeynote {
     private Long conferenceId;
     private Long keynoteId;
 }
-
