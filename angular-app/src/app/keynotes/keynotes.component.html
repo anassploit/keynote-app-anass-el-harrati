@@ -1,0 +1,137 @@
+<div class="container">
+  <header class="page-header">
+    <div>
+      <h1>Keynotes</h1>
+      <p class="subtitle">Browse our featured speakers and experts</p>
+    </div>
+  </header>
+
+  @if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading keynotes…</p>
+  </div>
+  } @else if (error()) {
+  <div class="error-message">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span>{{ error() }}</span>
+  </div>
+  } @else if (keynotes().length === 0) {
+  <div class="empty-state">
+    <p>No keynotes available at the moment.</p>
+  </div>
+  } @else {
+  <div class="grid">
+    @for (k of keynotes(); track k.id) {
+    <div class="card">
+      <div class="card-header">
+        <div class="avatar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="header-info">
+          <h3 class="card-title">{{ k.firstName }} {{ k.lastName }}</h3>
+          <p class="card-function">{{ k.function }}</p>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="info-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+            ></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <div>
+            <span class="info-label">Email</span>
+            <a [href]="'mailto:' + k.email" class="info-value email">{{ k.email }}</a>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M16 7a4 4 0 0 1-8 0M12 14h.01M5 21h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2z"
+            ></path>
+          </svg>
+          <div>
+            <span class="info-label">ID</span>
+            <span class="info-value">#{{ k.id }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <a class="action-link" [href]="k._links.self.href" target="_blank" rel="noopener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          View Details
+        </a>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>

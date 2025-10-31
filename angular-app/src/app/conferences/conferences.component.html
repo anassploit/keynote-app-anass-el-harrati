@@ -1,0 +1,209 @@
+<div class="container">
+  <header class="page-header">
+    <div>
+      <h1>Conferences</h1>
+      <p class="subtitle">Discover and explore upcoming conferences</p>
+    </div>
+  </header>
+
+  @if (isLoading()) {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading conferences…</p>
+  </div>
+  } @else if (error()) {
+  <div class="error-message">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span>{{ error() }}</span>
+  </div>
+  } @else if (conferences().length === 0) {
+  <div class="empty-state">
+    <p>No conferences available at the moment.</p>
+  </div>
+  } @else {
+  <div class="grid">
+    @for (c of conferences(); track c.title + c.time) {
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ c.title }}</h3>
+        <span
+          class="badge"
+          [class.badge-academic]="c.type === 'ACADEMIC'"
+          [class.badge-commercial]="c.type === 'COMMERCIAL'"
+          >{{ c.type }}</span
+        >
+      </div>
+
+      <div class="card-body">
+        <div class="meta-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <div>
+            <span class="meta-label">Date</span>
+            <span class="meta-value">{{ c.date | date : 'medium' }}</span>
+          </div>
+        </div>
+
+        <div class="meta-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <div>
+            <span class="meta-label">Duration</span>
+            <span class="meta-value">{{ c.time }} minutes</span>
+          </div>
+        </div>
+
+        <div class="meta-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <div>
+            <span class="meta-label">Subscribed</span>
+            <span class="meta-value">{{ c.nbSubscribed }} people</span>
+          </div>
+        </div>
+
+        <div class="meta-item">
+          <svg
+            class="icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            ></polygon>
+          </svg>
+          <div>
+            <span class="meta-label">Rating</span>
+            <div class="rating">
+              <span class="rating-value">{{ c.score | number : '1.1-1' }}</span>
+              <div class="stars">
+                @for (star of [1,2,3,4,5]; track star) {
+                <svg
+                  class="star"
+                  [class.filled]="star <= Math.round(c.score)"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  ></polygon>
+                </svg>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <a class="action-link" [href]="c._links.self.href" target="_blank" rel="noopener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          View Details
+        </a>
+        <a class="action-link" [href]="c._links.reviews.href" target="_blank" rel="noopener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          Reviews
+        </a>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>

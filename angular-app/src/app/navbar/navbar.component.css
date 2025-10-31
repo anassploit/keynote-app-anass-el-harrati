@@ -1,0 +1,105 @@
+.navbar {
+	background: white;
+	border-bottom: 1px solid #e5e7eb;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.navbar-container {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 64px;
+}
+
+.navbar-brand {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #1f2937;
+	text-decoration: none;
+}
+
+.navbar-brand svg {
+	color: #667eea;
+	flex-shrink: 0;
+}
+
+.brand-text {
+	display: none;
+}
+
+@media (min-width: 640px) {
+	.brand-text {
+		display: inline;
+	}
+}
+
+.navbar-menu {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex: 1;
+	justify-content: center;
+}
+
+.nav-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	color: #6b7280;
+	text-decoration: none;
+	font-size: 0.875rem;
+	font-weight: 500;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+
+.nav-link:hover {
+	background: #f3f4f6;
+	color: #374151;
+}
+
+.nav-link.active {
+	background: #eff6ff;
+	color: #2563eb;
+}
+
+.nav-link svg {
+	flex-shrink: 0;
+}
+
+.logout-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	background: transparent;
+	border: 1px solid #e5e7eb;
+	color: #6b7280;
+	font-size: 0.875rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.logout-btn:hover {
+	background: #fee2e2;
+	border-color: #fecaca;
+	color: #dc2626;
+}
+
+.logout-btn svg {
+	flex-shrink: 0;
+}
+
